@@ -15,6 +15,7 @@ Quickstart
 3.) Assign them the class "scroll" if you want to like the styles from the css-file, otherwise give them the following attributes:
     position: fixed;	// All scrollable elements have to be position:fixed
     bottom: 0;	// Make it stick to the bottom (or top)
+    width: xxxxpx;	// I recommend to assign the width in px, prevents preloading issues
 4.) Order the layers via z-index (Note that it is recommended that the front layers are wider than the ones in the back)
 5.) In your javascript, use this code (the selectors refer to the elements that you desire to be scrolled):
     $.jInvertScroll(['yourselector1', 'yourselector2'...]);

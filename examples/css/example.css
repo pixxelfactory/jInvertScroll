@@ -33,19 +33,22 @@ h1
 
 /**
   * z-index ordering of the different layers, do this for your layers,
-  * you can give your layer absolute width / heights here too, if you like
+  * also assign absolute width (to prevent issues if the script gets executed before the images get loaded)
   */
 .horizon
 {
   z-index: 1;
+  width: 3000px;
 }
 
 .middle
 {
   z-index: 500;
+  width: 4000px;
 }
 
 .front
 {
   z-index: 1000;
+  width: 6000px;
 }
