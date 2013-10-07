@@ -4,6 +4,8 @@
 *
 *	License:
 *	The MIT License (MIT)
+*   
+*	@version 0.8.1
 *
 *   Copyright (c) 2013 pixxelfactory
 *   
@@ -25,7 +27,9 @@
 *   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 *   THE SOFTWARE.
 **/
-(function($) {
+(function ($) {
+    'use strict';
+
     $.jInvertScroll = function(sel, options) {
         var defaults = {
             width: 'auto',		    // The horizontal container width
@@ -41,8 +45,11 @@
             return;
         }
         
-        var elements = [];
-        var longest = 0;
+        var elements = [],
+            longest = 0,
+            totalHeight,
+            winHeight,
+            winWidth;
         
         // Extract all selected elements from dom and save them into an array
         $.each(sel, function(i, val) {
@@ -73,24 +80,27 @@
         // Set the body to the selected height
         $('body').css('height', config.height+'px');
         
+        $([document, window]).on('ready resize', function (e) {
+            totalHeight = $(document).height();
+            winHeight = $(this).height();
+            winWidth = $(this).width();
+        });
+
         // Listen for the actual scroll event
-        $(window).on('scroll resize', function(e) {
+        $(window).on('scroll resize', function (e) {
             var currY = $(this).scrollTop();
-            var totalHeight = $(document).height();
-            var winHeight = $(this).height();
-            var winWidth = $(this).width();
             
             // Current percentual position
-            var percent = (currY / (totalHeight - winHeight)).toFixed(4);
+            var scrollPercent = (currY / (totalHeight - winHeight)).toFixed(4);
             
             // Call the onScroll callback
             if(typeof config.onScroll === 'function') {
-                config.onScroll.call(this, percent);
+                config.onScroll.call(this, scrollPercent);
             }
             
             // do the position calculation for each element
-            $.each(elements, function(i, el) {
-                var pos = Math.floor((el.width - winWidth) * percent) * -1;
+            $.each(elements, function (i, el) {
+                var pos = Math.floor((el.width - winWidth) * scrollPercent) * -1;
                 el.el.css('left', pos);
             });
         });
