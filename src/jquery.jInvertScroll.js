@@ -54,16 +54,11 @@
         // Extract all selected elements from dom and save them into an array
         $.each(sel, function(i, val) {
             $(val).each(function(e) {
-                var tmp = {
-                    width: $(this).width(),
-                    height: $(this).height(),
-                    el: $(this)
-                }
+                elements.push($(this));
                 
-                elements.push(tmp);
-                
-                if(longest < tmp.width) {
-                    longest = tmp.width;
+                var w = $(this).width();
+                if(longest < w) {
+                    longest = w;
                 }
             });
         });
@@ -105,7 +100,7 @@
                     deltaW = el.width();
                 }
                 var pos = Math.floor(deltaW * scrollPercent) * -1;
-                el.el.css('left', pos);
+                el.css('left', pos);
             });
         });
     };
