@@ -100,7 +100,11 @@
             
             // do the position calculation for each element
             $.each(elements, function (i, el) {
-                var pos = Math.floor((el.width - winWidth) * scrollPercent) * -1;
+                var deltaW = el.width() - winWidth;
+                if (deltaW <= 0) {
+                    deltaW = el.width();
+                }
+                var pos = Math.floor(deltaW * scrollPercent) * -1;
                 el.el.css('left', pos);
             });
         });
