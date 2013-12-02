@@ -5,7 +5,7 @@
 *	License:
 *	The MIT License (MIT)
 *
-*	@version 0.8.1
+*	@version 0.8.2
 *
 *   Copyright (c) 2013 pixxelfactory
 *   
