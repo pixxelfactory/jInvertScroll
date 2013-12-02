@@ -4,7 +4,7 @@
 *
 *	License:
 *	The MIT License (MIT)
-*   
+*
 *	@version 0.8.1
 *
 *   Copyright (c) 2013 pixxelfactory
@@ -54,16 +54,11 @@
         // Extract all selected elements from dom and save them into an array
         $.each(sel, function(i, val) {
             $(val).each(function(e) {
-                var tmp = {
-                    width: $(this).width(),
-                    height: $(this).height(),
-                    el: $(this)
-                }
+                elements.push($(this));
                 
-                elements.push(tmp);
-                
-                if(longest < tmp.width) {
-                    longest = tmp.width;
+                var w = $(this).width();
+                if(longest < w) {
+                    longest = w;
                 }
             });
         });
@@ -100,8 +95,12 @@
             
             // do the position calculation for each element
             $.each(elements, function (i, el) {
-                var pos = Math.floor((el.width - winWidth) * scrollPercent) * -1;
-                el.el.css('left', pos);
+                var deltaW = el.width() - winWidth;
+                if (deltaW <= 0) {
+                    deltaW = el.width();
+                }
+                var pos = Math.floor(deltaW * scrollPercent) * -1;
+                el.css('left', pos);
             });
         });
     };
