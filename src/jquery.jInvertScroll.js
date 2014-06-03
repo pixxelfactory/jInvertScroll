@@ -5,7 +5,7 @@
 *	License:
 *	The MIT License (MIT)
 *
-*	@version 0.8.1
+*	@version 0.8.3
 *
 *   Copyright (c) 2013 pixxelfactory
 *   
@@ -77,16 +77,21 @@
         
         $([document, window]).on('ready resize', function (e) {
             totalHeight = $(document).height();
-            winHeight = $(this).height();
-            winWidth = $(this).width();
+            winHeight = $(window).height();
+            winWidth = $(window).width();
         });
 
         // Listen for the actual scroll event
         $(window).on('scroll resize', function (e) {
             var currY = $(this).scrollTop();
             
-            // Current percentual position
-            var scrollPercent = (currY / (totalHeight - winHeight)).toFixed(4);
+            var diff = totalHeight - winHeight;
+            var scrollPercent = 0;
+            
+            if (diff != 0) {
+                // Current percentual position
+                var scrollPercent = (currY / diff).toFixed(4);
+            }
             
             // Call the onScroll callback
             if(typeof config.onScroll === 'function') {
